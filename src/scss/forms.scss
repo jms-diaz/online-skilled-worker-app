@@ -1,0 +1,36 @@
+.btn {
+  border-radius: 3px;
+}
+
+.form-header {
+  margin: -30px -30px 20px;
+  padding: 30px 30px 10px;
+  text-align: center;
+
+  h2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
+
+  p {
+    margin: 20px 0 15px;
+    font-size: 17px;
+    line-height: normal;
+  }
+}
+
+.form-control {
+  background: #fffefe;
+
+  &:focus {
+    background: #fffefe;
+  }
+}
+
+.resume-container {
+  border-bottom: 1px solid #ABB5BE;
+}
+
+
+

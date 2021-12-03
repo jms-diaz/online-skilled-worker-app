@@ -1,0 +1,42 @@
+// FONT
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+
+// RESET STYLING
+$font-family-sans-serif: "Inter", sans-serif;
+$font-family-monospace: "Oswald", serif;
+
+// COLORS
+$body-bg: #e5e5e5;
+$primary: #000000; // Buttons, Icons, Headings
+$secondary: #f2f2f2; // Secondary Light Color
+$dark: #152536; // Text Color
+$light: #fffefe;
+
+// VARIABLES
+$spacer: 1rem !default;
+$spacers: (
+        0: 0,
+        1: ($spacer * .25),
+        2: ($spacer * .5),
+        3: $spacer,
+        4: ($spacer * 1.5),
+        5: ($spacer * 3),
+        6: ($spacer * 4),
+        7: ($spacer * 5),
+        8: ($spacer * 6.25),
+        9: ($spacer * 7.5),
+        10: ($spacer * 9.375),
+        25: ($spacer * 25)
+);
+
+// CUSTOM STYLING
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// DO NOT EDIT CODES BELOW THIS LINE
+@import "../../node_modules/bootstrap/scss/bootstrap";
