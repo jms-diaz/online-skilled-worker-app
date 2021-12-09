@@ -15,7 +15,7 @@ export default function Header() {
                                 Quickly design and customize responsive mobile-first sites with Bootstrap,
                                 the world’s most popular front-end open source toolkit.
                             </p>
-                            <Button className="btn btn-primary btn-lg px-5 py-3 fs-6 me-md-2">
+                            <Button className="btn fw-bold btn-primary btn-lg px-5 py-3 fs-6 me-md-2">
                                 Join Now
                             </Button>
                         </Col>
