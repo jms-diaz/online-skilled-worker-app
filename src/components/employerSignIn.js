@@ -1,6 +1,14 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 export default function EmployerSignIn() {
+
+    const navigate = useNavigate();
+
+    function signInClick() {
+        navigate("/workers");
+    }
+
     return (
         <Container className="h-100 pt-7 pb-2">
             <Row className="d-flex justify-content-center h-100">
@@ -22,8 +30,8 @@ export default function EmployerSignIn() {
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
 
-                                <Button className="fs-6 fw-bold btn py-2 w-100 mt-2">Sign In</Button>
-                                <div className="text-center small mt-2">Don't have an account? <a href="#">Sign up here</a></div>
+                                <Button className="fs-6 fw-bold btn py-2 w-100 mt-2" onClick={signInClick}>Sign In</Button>
+                                <div className="text-center small mt-2">Don't have an account? <a href="/employer-sign-up">Sign up here</a></div>
                             </Form>
                         </Card.Body>
                     </Card>

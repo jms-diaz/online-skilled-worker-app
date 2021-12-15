@@ -1,8 +1,15 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 export default function EmployerSignUp() {
+
+    const navigate = useNavigate();
+
+    function signUpClick() {
+        navigate("/workers");
+    }
     return (
-        <Container className="h-100 pt-7 pb-2">
+        <Container className="h-100 pt-5 pb-2">
             <Row className="d-flex justify-content-center h-100">
                 <Col className="col-12 col-md-9 col-lg-7 col-xl-6">
                     <Card className="p-lg-5">
@@ -36,8 +43,8 @@ export default function EmployerSignUp() {
                                     <Form.Check type="checkbox" label="I accept the Terms of Use & Privacy Policy" />
                                 </Form.Group>
 
-                                <Button className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
-                                <div className="text-center small mt-2">Already have an account? <a href="#">Login here</a></div>
+                                <Button className="fs-6 fw-bold btn py-2 w-100" onClick={signUpClick}>Create Account</Button>
+                                <div className="text-center small mt-2">Already have an account? <a href="/employer-sign-in">Login here</a></div>
                             </Form>
                         </Card.Body>
                     </Card>

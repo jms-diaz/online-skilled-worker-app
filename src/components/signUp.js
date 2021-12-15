@@ -1,7 +1,15 @@
 import '../scss/forms.scss';
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 export default function SignUp() {
+
+    const navigate = useNavigate();
+
+    function resumeClick() {
+        navigate("/resume");
+    }
+
     return (
             <Container className="h-100 pt-7 pb-2">
                 <Row className="d-flex justify-content-center h-100">
@@ -27,8 +35,8 @@ export default function SignUp() {
                                         <Form.Check type="checkbox" label="I accept the Terms of Use & Privacy Policy" />
                                     </Form.Group>
 
-                                    <Button className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
-                                    <div className="text-center small mt-2">Already have an account? <a href="#">Login here</a></div>
+                                    <Button className="fs-6 fw-bold btn py-2 w-100" onClick={resumeClick}>Create Account</Button>
+                                    <div className="text-center small mt-2">Already have an account? <a href="/login">Login here</a></div>
                                 </Form>
                             </Card.Body>
                         </Card>

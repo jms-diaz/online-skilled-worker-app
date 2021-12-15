@@ -24,7 +24,7 @@ export default function EmployerMainCard() {
                             <Card.Body>
                                 <Card.Text  className="text-muted">5hrs ago - Full Time</Card.Text>
                                 <Card.Title className="fw-bold">Senior Software Engineer</Card.Title>
-                                <Card.Text className="text-muted fs-6">Microsoft Philippines</Card.Text>
+                                <Card.Text className="text-muted fs-6">John Doe</Card.Text>
                                 <Card.Subtitle  className="fw-bold pt-5">Makati City</Card.Subtitle>
                             </Card.Body>
                         </Card>

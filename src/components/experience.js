@@ -1,6 +1,14 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 export default function Experience() {
+
+    const navigate = useNavigate();
+
+    function finishClick() {
+        navigate("/jobs");
+    }
+
     return (
         <Container className="py-5">
             <Row className="d-flex h-100">
@@ -123,7 +131,7 @@ export default function Experience() {
                     </Card>
 
                     <Col className="text-end">
-                        <Button className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end">Finish Resume</Button>
+                        <Button className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end" onClick={finishClick}>Finish Resume</Button>
                     </Col>
                 </Col>
             </Row>

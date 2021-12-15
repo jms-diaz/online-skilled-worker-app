@@ -15,19 +15,30 @@ import Main from "./pages/Main";
 import EmployerMain from "./pages/EmployerMain";
 
 function App() {
+    const user = false;
+    const employer = false;
+
+    console.log(user && employer);
   return (
       <Router>
           <TopBar />
           <Routes>
               <Route exact path="/" element={<Home />} />
-              <Route exact path="/register" element={<Register />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/resume" element={<ResumePage />} />
-              <Route exact path="/experience" element={<WorkExperiencePage />} />
-              <Route exact path="/employer-sign-in" element={<EmployerLogin />} />
-              <Route exact path="/employer-sign-up" element={<EmployerRegister />} />
+              <Route exact path="/register" element={
+                  user ? <Home /> : <Register />} />
+              <Route exact path="/login" element={
+                  user ? <Home /> : <Login />} />
+              <Route exact path="/resume" element={
+                  user ? <Home /> : <ResumePage />} />
+              <Route exact path="/experience" element={
+                  user ? <Home /> : <WorkExperiencePage />} />
+              <Route exact path="/employer-sign-in" element={
+                  user ? <Home /> : <EmployerLogin />} />
+              <Route exact path="/employer-sign-up" element={
+                  user ? <Home /> : <EmployerRegister />} />
               <Route exact path="/jobs" element={<Main />} />
-              <Route exact path="/workers" element={<EmployerMain />} />
+              <Route exact path="/workers" element={
+                  (user && employer) ? <EmployerMain /> : <Home />} />
           </Routes>
       </Router>
   );
