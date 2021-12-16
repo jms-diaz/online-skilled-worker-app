@@ -16,12 +16,12 @@ import EmployerMain from "./pages/EmployerMain";
 
 function App() {
     const user = false;
-    const employer = false;
-
-    console.log(user && employer);
   return (
       <Router>
-          <TopBar />
+
+          {/* change isLoggedIn to false when user is not logged in */}
+          <TopBar isLoggedIn={false}/>
+
           <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/register" element={
@@ -37,9 +37,9 @@ function App() {
               <Route exact path="/employer-sign-up" element={
                   user ? <Home /> : <EmployerRegister />} />
               <Route exact path="/jobs" element={<Main />} />
-              <Route exact path="/workers" element={
-                  (user && employer) ? <EmployerMain /> : <Home />} />
+              <Route exact path="/workers" element={<EmployerMain />} />
           </Routes>
+
       </Router>
   );
 }

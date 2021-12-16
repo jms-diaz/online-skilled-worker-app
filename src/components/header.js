@@ -5,9 +5,12 @@ import {useNavigate} from "react-router-dom";
 export default function Header() {
     const navigate = useNavigate();
 
-
     function registerClick() {
         navigate("/register");
+    }
+
+    function employerLoginClick() {
+        navigate("/employer-sign-in");
     }
 
     return (
@@ -23,8 +26,11 @@ export default function Header() {
                                 Quickly design and customize responsive mobile-first sites with Bootstrap,
                                 the world’s most popular front-end open source toolkit.
                             </p>
-                            <Button onClick={registerClick} className="btn fw-bold btn-primary btn-lg px-5 py-3 fs-6 me-md-2">
+                            <Button onClick={registerClick} className="btn fw-bold btn-primary btn-lg px-5 py-3 fs-6 me-md-4">
                                 Join Now
+                            </Button>
+                            <Button onClick={employerLoginClick} className="btn fw-bold btn-secondary btn-lg px-5 py-3 fs-6">
+                                Employer Login
                             </Button>
                         </Col>
                         <Col className="col-lg-6 col-xl-7 col-sm-12">

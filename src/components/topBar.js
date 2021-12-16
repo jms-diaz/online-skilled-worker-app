@@ -2,8 +2,9 @@ import {Navbar, Container, Button} from 'react-bootstrap';
 import logo from '../images/oswa-logo.png';
 import {useNavigate} from "react-router-dom";
 
-export default function TopBar() {
+export default function TopBar(props) {
     const navigate = useNavigate();
+    const isLoggedIn = props.isLoggedIn;
 
     function registerClick() {
         navigate("/register");
@@ -31,8 +32,14 @@ export default function TopBar() {
                     OSWL
                 </Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
-                        <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2" onClick={loginClick}>Sign in</Button>
-                        <Button className="fw-bold fs-6 px-3 py-2" onClick={registerClick}>Join Now</Button>
+                        {isLoggedIn
+                            ? <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2" onClick={signOutClick}>Sign out</Button>
+                            : <>
+                                <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2" onClick={loginClick}>Sign in</Button>
+                                <Button className="fw-bold fs-6 px-3 py-2" onClick={registerClick}>Join Now</Button>
+                              </>
+                        }
+
                     </Navbar.Collapse>
             </Container>
         </Navbar>

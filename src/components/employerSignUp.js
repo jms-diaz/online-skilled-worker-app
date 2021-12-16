@@ -1,9 +1,24 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 export default function EmployerSignUp() {
 
     const navigate = useNavigate();
+    const [validated, setValidated] = useState(false);
+
+    function handleSubmit (event) {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        if (validated) {
+            signUpClick();
+        }
+    }
 
     function signUpClick() {
         navigate("/workers");
@@ -18,32 +33,49 @@ export default function EmployerSignUp() {
                                 <h2 className="mb-2">Employer Sign Up</h2>
                                 <p className="m-2 pb-3">Sign up for FREE to start finding skilled workers</p>
                             </div>
-                            <Form>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="formContactPerson">
                                     <Form.Label className="fw-bold">Contact Person Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter contact name" />
+                                    <Form.Control type="text" placeholder="Enter contact name" required/>
+                                    <Form.Control.Feedback type="invalid">
+                                        Contact person cannot be blank.
+                                    </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3" controlId="formBusinessName">
                                     <Form.Label className="fw-bold">Registered Business Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter business name" />
+                                    <Form.Control type="text" placeholder="Enter business name" required/>
+                                    <Form.Control.Feedback type="invalid">
+                                        Business name cannot be blank.
+                                    </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3" controlId="formEmail">
                                     <Form.Label className="fw-bold">Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control type="email" placeholder="Enter email" required/>
+                                    <Form.Control.Feedback type="invalid">
+                                        Please enter valid email.
+                                    </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Group className="mb-3" controlId="formPassword">
                                     <Form.Label className="fw-bold">Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control type="password" placeholder="Password" required/>
+                                    <Form.Control.Feedback type="invalid">
+                                        Please enter password.
+                                    </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" label="I accept the Terms of Use & Privacy Policy" />
+                                <Form.Group className="mb-3" controlId="formCheckbox">
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="I accept the Terms of Use & Privacy Policy"
+                                        feedbackType="invalid"
+                                        required
+                                    />
                                 </Form.Group>
 
-                                <Button className="fs-6 fw-bold btn py-2 w-100" onClick={signUpClick}>Create Account</Button>
+                                <Button type="submit" className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
                                 <div className="text-center small mt-2">Already have an account? <a href="/employer-sign-in">Login here</a></div>
                             </Form>
                         </Card.Body>

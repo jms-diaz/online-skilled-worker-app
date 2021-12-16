@@ -1,10 +1,25 @@
 import '../scss/forms.scss';
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 export default function SignUp() {
 
     const navigate = useNavigate();
+    const [validated, setValidated] = useState(false);
+
+    function handleSubmit (event) {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        if (validated) {
+            resumeClick();
+        }
+    }
 
     function resumeClick() {
         navigate("/resume");
@@ -20,22 +35,33 @@ export default function SignUp() {
                                     <h2 className="mb-2">Register</h2>
                                     <p className="m-2 pb-3">Find job opportunities online for FREE</p>
                                 </div>
-                                <Form>
+                                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label className="fw-bold">Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
+                                        <Form.Control type="email" placeholder="Enter email" required/>
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter valid email.
+                                        </Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label className="fw-bold">Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
+                                        <Form.Control type="password" placeholder="Password" required/>
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter password.
+                                        </Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                        <Form.Check type="checkbox" label="I accept the Terms of Use & Privacy Policy" />
+                                        <Form.Check
+                                            type="checkbox"
+                                            label="I accept the Terms of Use & Privacy Policy"
+                                            feedbackType="invalid"
+                                            required
+                                        />
                                     </Form.Group>
 
-                                    <Button className="fs-6 fw-bold btn py-2 w-100" onClick={resumeClick}>Create Account</Button>
+                                    <Button type="submit" className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
                                     <div className="text-center small mt-2">Already have an account? <a href="/login">Login here</a></div>
                                 </Form>
                             </Card.Body>
