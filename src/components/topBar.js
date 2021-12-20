@@ -22,25 +22,23 @@ export default function TopBar(props) {
         <Navbar bg="light">
             <Container className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <Navbar.Brand href="/" className="font-monospace fs-4 fw-bold py-3">
-                    <img
-                        alt=""
+                    <img alt=""
                         src={logo}
                         width="60"
                         height="50"
-                        className="d-inline-block pe-2"
-                    />{' '}
+                        className="d-inline-block pe-2"/>{' '}
                     OSWL
                 </Navbar.Brand>
-                    <Navbar.Collapse className="justify-content-end">
-                        {isLoggedIn
-                            ? <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2" onClick={signOutClick}>Sign out</Button>
-                            : <>
-                                <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2" onClick={loginClick}>Sign in</Button>
-                                <Button className="fw-bold fs-6 px-3 py-2" onClick={registerClick}>Join Now</Button>
-                              </>
-                        }
-
-                    </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    {
+                    isLoggedIn ? <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2"
+                        onClick={signOutClick}>Sign out</Button> : <>
+                        <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2"
+                            onClick={loginClick}>Sign in</Button>
+                        <Button className="fw-bold fs-6 px-3 py-2"
+                            onClick={registerClick}>Join Now</Button>
+                    </>
+                } </Navbar.Collapse>
             </Container>
         </Navbar>
     )

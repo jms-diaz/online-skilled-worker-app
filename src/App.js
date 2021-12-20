@@ -16,11 +16,9 @@ import EmployerMain from "./pages/EmployerMain";
 
 function App() {
     const user = false;
-  return (
-      <Router>
-
-          {/* change isLoggedIn to false when user is not logged in */}
-          <TopBar isLoggedIn={false}/>
+    return (
+        <Router> {/* change isLoggedIn to false when user is not logged in */}
+            <TopBar isLoggedIn={false}/>
 
           <Routes>
               <Route exact path="/" element={<Home />} />

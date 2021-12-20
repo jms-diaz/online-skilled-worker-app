@@ -28,9 +28,12 @@
   }
 }
 
-.resume-container {
-  border-bottom: 1px solid #ABB5BE;
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
 }
-
 
 

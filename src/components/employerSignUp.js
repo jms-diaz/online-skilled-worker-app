@@ -1,28 +1,27 @@
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import * as yup from "yup";
+import {Formik} from "formik";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {
+    Button,
+    Card,
+    Col,
+    Container,
+    Form,
+    Row
+} from "react-bootstrap";
 
 export default function EmployerSignUp() {
 
+    const schema = yup.object().shape({
+        contactPerson: yup.string().required("Contact person is required"),
+        businessName: yup.string().required("Business name is required"),
+        email: yup.string().email().required("Email is required"),
+        password: yup.string().required("Password is required"),
+        terms: yup.bool().required().oneOf([true], "Terms and conditions must be accepted")
+    });
+
     const navigate = useNavigate();
-    const [validated, setValidated] = useState(false);
 
-    function handleSubmit (event) {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-        if (validated) {
-            signUpClick();
-        }
-    }
-
-    function signUpClick() {
-        navigate("/workers");
-    }
     return (
         <Container className="h-100 pt-5 pb-2">
             <Row className="d-flex justify-content-center h-100">
@@ -33,51 +32,127 @@ export default function EmployerSignUp() {
                                 <h2 className="mb-2">Employer Sign Up</h2>
                                 <p className="m-2 pb-3">Sign up for FREE to start finding skilled workers</p>
                             </div>
-                            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="formContactPerson">
-                                    <Form.Label className="fw-bold">Contact Person Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter contact name" required/>
-                                    <Form.Control.Feedback type="invalid">
-                                        Contact person cannot be blank.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formBusinessName">
-                                    <Form.Label className="fw-bold">Registered Business Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter business name" required/>
-                                    <Form.Control.Feedback type="invalid">
-                                        Business name cannot be blank.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                            <Formik
+                                validateOnChange={false}
+                                validationSchema={schema}
+                                onSubmit={
+                                    (values, {setSubmitting}) => {
+                                        setTimeout(() => {
+                                            alert(JSON.stringify(values, null, 2));
+                                            setSubmitting(false);
+                                        }, 1000);
+                                        navigate("/workers")
+                                    }
+                                }
+                                initialValues={
+                                    {
+                                        contactPerson: "",
+                                        businessName: "",
+                                        email: "",
+                                        password: "",
+                                        terms: false
+                                    }
+                            }>
+                                {
+                                ({
+                                    handleSubmit,
+                                    handleChange,
+                                    handleBlur,
+                                    values,
+                                    touched,
+                                    isValid,
+                                    errors
+                                }) => (
+                                    <Form noValidate
+                                        onSubmit={handleSubmit}>
+                                        <Form.Group className="mb-3" controlId="formContactPerson">
+                                            <Form.Label className="fw-bold">Contact Person Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Enter contact person name" name="contactPerson"
+                                                value={
+                                                    values.contactPerson
+                                                }
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.contactPerson
+                                                }/>
 
-                                <Form.Group className="mb-3" controlId="formEmail">
-                                    <Form.Label className="fw-bold">Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" required/>
-                                    <Form.Control.Feedback type="invalid">
-                                        Please enter valid email.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                                            <Form.Control.Feedback type="invalid">
+                                                {
+                                                errors.contactPerson
+                                            } </Form.Control.Feedback>
+                                        </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="formPassword">
-                                    <Form.Label className="fw-bold">Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" required/>
-                                    <Form.Control.Feedback type="invalid">
-                                        Please enter password.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                                        <Form.Group className="mb-3" controlId="formBusinessName">
+                                            <Form.Label className="fw-bold">Registered Business Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Enter business name" name="businessName"
+                                                value={
+                                                    values.businessName
+                                                }
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.businessName
+                                                }/>
 
-                                <Form.Group className="mb-3" controlId="formCheckbox">
-                                    <Form.Check
-                                        type="checkbox"
-                                        label="I accept the Terms of Use & Privacy Policy"
-                                        feedbackType="invalid"
-                                        required
-                                    />
-                                </Form.Group>
+                                            <Form.Control.Feedback type="invalid">
+                                                {
+                                                errors.businessName
+                                            } </Form.Control.Feedback>
+                                        </Form.Group>
 
-                                <Button type="submit" className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
-                                <div className="text-center small mt-2">Already have an account? <a href="/employer-sign-in">Login here</a></div>
-                            </Form>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label className="fw-bold">Email</Form.Label>
+                                            <Form.Control type="email" placeholder="Enter email" name="email"
+                                                value={
+                                                    values.email
+                                                }
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.email
+                                                }/>
+
+                                            <Form.Control.Feedback type="invalid">
+                                                {
+                                                errors.email
+                                            } </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        <Form.Group className="mb-3" controlId="formPassword">
+                                            <Form.Label className="fw-bold">Password</Form.Label>
+                                            <Form.Control type="password" placeholder="Enter password" name="password"
+                                                value={
+                                                    values.password
+                                                }
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.password
+                                                }/>
+
+                                            <Form.Control.Feedback type="invalid">
+                                                {
+                                                errors.password
+                                            } </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                            <Form.Check required name="terms" label="I accept the Terms of Use and Privacy Policy"
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.terms
+                                                }
+                                                feedback={
+                                                    errors.terms
+                                                }
+                                                feedbackType="invalid"
+                                                id="validationFormik0"/>
+                                        </Form.Group>
+                                        <Button type="submit" className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
+                                    </Form>
+                                )
+                            }</Formik>
+                            <div className="text-center small mt-2">Already have an account?
+                                <a href="/employer-sign-in">Login here</a>
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>

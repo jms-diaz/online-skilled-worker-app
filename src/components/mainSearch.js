@@ -1,10 +1,16 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {
+    Button,
+    Col,
+    Container,
+    Form,
+    Row
+} from "react-bootstrap";
 
 export default function MainSearch() {
     return (
         <div className="bg-dark">
             <Container className="py-5">
-                <Row className="h-100">
+                <Row>
                     <Col>
                         <h3 className="mb-5 text-white">Find the right job for you</h3>
 
@@ -13,13 +19,13 @@ export default function MainSearch() {
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Job Title/Company</Form.Label>
-                                        <Form.Control type="text"  placeholder="Senior Software Engineer"/>
+                                        <Form.Control type="text" placeholder="Senior Software Engineer"/>
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Job Specializations</Form.Label>
-                                        <Form.Control type="text" placeholder="Computer/Information Technology" />
+                                        <Form.Control type="text" placeholder="Computer/Information Technology"/>
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-2">

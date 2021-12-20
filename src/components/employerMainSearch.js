@@ -1,11 +1,17 @@
 import React from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {
+    Button,
+    Col,
+    Container,
+    Form,
+    Row
+} from "react-bootstrap";
 
 export default function EmployerMainSearch() {
     return (
         <div className="bg-dark">
             <Container className="py-5">
-                <Row className="h-100">
+                <Row>
                     <Col className="">
                         <h3 className="mb-5 text-white">Find the right worker for the company</h3>
 
@@ -14,13 +20,13 @@ export default function EmployerMainSearch() {
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Role Title</Form.Label>
-                                        <Form.Control type="text"  placeholder="Senior Software Engineer"/>
+                                        <Form.Control type="text" placeholder="Senior Software Engineer"/>
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Job Specializations</Form.Label>
-                                        <Form.Control type="text" placeholder="Computer/Information Technology" />
+                                        <Form.Control type="text" placeholder="Computer/Information Technology"/>
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-2">

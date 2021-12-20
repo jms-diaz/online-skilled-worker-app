@@ -4,8 +4,8 @@ import MainCard from "../components/mainCard";
 export default function Main() {
     return (
         <>
-            <MainSearch />
-            <MainCard />
+            <MainSearch/>
+            <MainCard/>
         </>
     )
 }
