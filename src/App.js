@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import Main from "./pages/Main";
 import EmployerMain from "./pages/EmployerMain";
+import EmployerDetails from "./components/employerDetails";
 
 function App() {
     const user = false;
@@ -34,6 +35,8 @@ function App() {
                   user ? <Home /> : <EmployerLogin />} />
               <Route exact path="/employer-sign-up" element={
                   user ? <Home /> : <EmployerRegister />} />
+              <Route exact path="/employer-details" element={
+                  user ? <Home /> : <EmployerDetails />} />
               <Route exact path="/jobs" element={<Main />} />
               <Route exact path="/workers" element={<EmployerMain />} />
           </Routes>

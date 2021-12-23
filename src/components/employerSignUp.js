@@ -42,7 +42,7 @@ export default function EmployerSignUp() {
                                             alert(JSON.stringify(values, null, 2));
                                             setSubmitting(false);
                                         }, 1000);
-                                        navigate("/workers")
+                                        navigate("/employer-details")
                                     }
                                 }
                                 initialValues={

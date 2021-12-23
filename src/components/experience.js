@@ -4,12 +4,12 @@ import {Formik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {
     Button,
-    Card,
     Col,
     Container,
     Form,
     Row
 } from "react-bootstrap";
+import React from "react";
 
 export default function Experience() {
 
@@ -127,17 +127,17 @@ export default function Experience() {
                                     <Col className="col-md-6 mb-4">
                                         <Form.Group>
                                             <Form.Label className="fw-bold">Country</Form.Label>
-                                            <select className="form-select"
-                                                defaultValue={''}
-                                                name="country"
-                                                value={
-                                                    values.country
-                                                }
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                style={
-                                                    {backgroundColor: '#fffefe'}
-                                            }>
+                                            <Form.Select className="form-select"
+                                                         name="country"
+                                                         value={
+                                                             values.country
+                                                         }
+                                                         onChange={handleChange}
+                                                         onBlur={handleBlur}
+                                                         style={
+                                                             {backgroundColor: '#fffefe'}
+                                                         }
+                                            >
                                                 <option value="" disabled>---SELECT---</option>
                                                 <option value="Afganistan">Afghanistan</option>
                                                 <option value="Albania">Albania</option>
@@ -388,7 +388,7 @@ export default function Experience() {
                                                 <option value="Zaire">Zaire</option>
                                                 <option value="Zambia">Zambia</option>
                                                 <option value="Zimbabwe">Zimbabwe</option>
-                                            </select>
+                                            </Form.Select>
 
                                             <div className="invalid-feedback">
                                                 {
@@ -421,63 +421,74 @@ export default function Experience() {
                                 <Col className="mb-4">
                                     <Form.Group>
                                         <Form.Label className="fw-bold">Industry</Form.Label>
-                                        <select className="form-select"
-                                            defaultValue={''}
-                                            name="industry"
-                                            value={
-                                                values.industry
-                                            }
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            style={
-                                                {backgroundColor: '#fffefe'}
-                                        }>
+                                        <Form.Select className="form-select"
+                                                     name="industry"
+                                                     value={
+                                                         values.industry
+                                                     }
+                                                     onChange={handleChange}
+                                                     onBlur={handleBlur}
+                                                     style={
+                                                         {backgroundColor: '#fffefe'}
+                                                     }
+                                        >
                                             <option value="" disabled>---SELECT---</option>
                                             <option id='Accounting'>Accounting</option>
-                                            <option id='Administration & Office Support'>Administration & Office Support
+                                            <option id='Administration & Office Support'>Administration & Office
+                                                Support
                                             </option>
-                                            <option id='Advertising, Arts & Media'>Advertising, Arts & Media</option>
-                                            <option id='Banking & Financial Services'>Banking & Financial Services
+                                            <option id='Advertising, Arts & Media'>Advertising, Arts & Media
                                             </option>
-                                            <option id='Call Centre & Customer Service'>Call Centre & Customer Service
+                                            <option id='Banking & Financial Services'>Banking & Financial
+                                                Services
+                                            </option>
+                                            <option id='Call Centre & Customer Service'>Call Centre & Customer
+                                                Service
                                             </option>
                                             <option id='Community Services & Development'>Community Services &
-                                                                                                Development
+                                                Development
                                             </option>
                                             <option id='Construction'>Construction</option>
                                             <option id='Consulting & Strategy'>Consulting & Strategy</option>
                                             <option id='Design & Architecture'>Design & Architecture</option>
                                             <option id='Education & Training'>Education & Training</option>
                                             <option id='Engineering'>Engineering</option>
-                                            <option id='Farming, Animals & Conservation'>Farming, Animals & Conservation
+                                            <option id='Farming, Animals & Conservation'>Farming, Animals &
+                                                Conservation
                                             </option>
                                             <option id='Government & Defense'>Government & Defense</option>
                                             <option id='Healthcare & Medical'>Healthcare & Medical</option>
                                             <option id='Hospitality & Tourism'>Hospitality & Tourism</option>
-                                            <option id='Human Resources & Recruitment'>Human Resources & Recruitment
+                                            <option id='Human Resources & Recruitment'>Human Resources &
+                                                Recruitment
                                             </option>
                                             <option id='Information & Communication Technology'>Information &
-                                                                                                Communication
-                                                                                                Technology
+                                                Communication
+                                                Technology
                                             </option>
-                                            <option id='Insurance & Superannuation'>Insurance & Superannuation</option>
+                                            <option id='Insurance & Superannuation'>Insurance & Superannuation
+                                            </option>
                                             <option id='Legal'>Legal</option>
-                                            <option id='Manufacturing, Transport & Logistics'>Manufacturing, Transport &
-                                                                                                Logistics
+                                            <option id='Manufacturing, Transport & Logistics'>Manufacturing,
+                                                Transport &
+                                                Logistics
                                             </option>
-                                            <option id='Marketing & Communications'>Marketing & Communications</option>
-                                            <option id='Mining, Resources & Energy'>Mining, Resources & Energy</option>
+                                            <option id='Marketing & Communications'>Marketing & Communications
+                                            </option>
+                                            <option id='Mining, Resources & Energy'>Mining, Resources & Energy
+                                            </option>
                                             <option id='Real Estate & Property'>Real Estate & Property</option>
-                                            <option id='Retail & Consumer Products'>Retail & Consumer Products</option>
+                                            <option id='Retail & Consumer Products'>Retail & Consumer Products
+                                            </option>
                                             <option id='Sales'>Sales</option>
                                             <option id='Science & Technology'>Science & Technology</option>
                                             <option id='Sport & Recreation'>Sport & Recreation</option>
-                                        </select>
+                                        </Form.Select>
 
                                         <div className="invalid-feedback">
                                             {
-                                            errors.industry
-                                        } </div>
+                                                errors.industry
+                                            } </div>
 
 
                                     </Form.Group>
@@ -485,13 +496,13 @@ export default function Experience() {
 
                                 <Form.Group className="mb-4">
                                     <Form.Label className="fw-bold">Experience Description</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter experience description" name="experience"
+                                    <Form.Control type="text" placeholder="Enter experience description" name="experienceDescription"
                                         value={
-                                            values.experience
+                                            values.experienceDescription
                                         }
                                         onChange={handleChange}
                                         isInvalid={
-                                            !!errors.experience
+                                            !!errors.experienceDescription
                                         }
                                         as="textarea"
                                         rows={5}
@@ -499,65 +510,9 @@ export default function Experience() {
 
                                     <Form.Control.Feedback type="invalid">
                                         {
-                                        errors.experience
+                                        errors.experienceDescription
                                     } </Form.Control.Feedback>
                                 </Form.Group>
-
-                                <Button className="fs-6 fw-bold btn py-2 px-5 mt-2 mb-4">Add Work Experience</Button>
-
-                                <Card className="mb-4">
-                                    <Card.Body className="p-4">
-                                        <Form>
-                                            <Row>
-                                                <Col className="col-md-6 mb-4">
-                                                    <Form.Group>
-                                                        <Form.Label className="fw-bold">Company Name</Form.Label>
-                                                        <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                    </Form.Group>
-                                                </Col>
-                                                <Col className="col-md-6 mb-4">
-                                                    <Form.Group>
-                                                        <Form.Label className="fw-bold">Joined Duration</Form.Label>
-                                                        <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                    </Form.Group>
-                                                </Col>
-                                            </Row>
-
-                                            <Row>
-                                                <Col className="col-md-6 mb-4">
-                                                    <Form.Group>
-                                                        <Form.Label className="fw-bold">Position Title</Form.Label>
-                                                        <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                    </Form.Group>
-                                                </Col>
-                                                <Col className="col-md-6 mb-4">
-                                                    <Form.Group>
-                                                        <Form.Label className="fw-bold">Country</Form.Label>
-                                                        <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                    </Form.Group>
-                                                </Col>
-                                            </Row>
-
-                                            <Col className="mb-4">
-                                                <Form.Group>
-                                                    <Form.Label className="fw-bold">Industry</Form.Label>
-                                                    <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                </Form.Group>
-                                            </Col>
-
-                                            <Col className="mb-4">
-                                                <Form.Group>
-                                                    <Form.Label className="fw-bold">Experience Description</Form.Label>
-                                                    <Form.Control plaintext readOnly defaultValue="N/A"/>
-                                                </Form.Group>
-                                            </Col>
-
-                                            <Col className="text-end">
-                                                <Button className="fs-6 btn-danger fw-bold btn py-2 px-3">Remove</Button>
-                                            </Col>
-                                        </Form>
-                                    </Card.Body>
-                                </Card>
 
                                 <Col className="text-end">
                                     <Button type="submit" className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end">Finish
