@@ -1,44 +1,71 @@
 import {Navbar, Container, Button} from 'react-bootstrap';
 import logo from '../images/oswa-logo.png';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {Context} from "../context/Context";
+import '../scss/custom.scss';
+import placeholder from '../images/placeholder.png';
 
-export default function TopBar(props) {
+export default function TopBar() {
     const navigate = useNavigate();
-    const isLoggedIn = props.isLoggedIn;
+    const {user, dispatch} = useContext(Context);
+    const PF = "http://localhost:5000/images/";
 
-    function registerClick() {
-        navigate("/register");
+    const employerRegisterClick = () => {
+        navigate("/worker-register");
     }
 
-    function loginClick() {
-        navigate("/login");
+    const loginClick = () => {
+        navigate("/customer-sign-in");
     }
 
-    function signOutClick() {
+    const signOutClick = () => {
+        dispatch({type: "LOGOUT"})
         navigate("/");
     }
 
+    //console.log(user);
     return (
         <Navbar bg="light">
             <Container className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <Navbar.Brand href="/" className="font-monospace fs-4 fw-bold py-3">
                     <img alt=""
-                        src={logo}
-                        width="60"
-                        height="50"
-                        className="d-inline-block pe-2"/>{' '}
+                         src={logo}
+                         width="60"
+                         height="50"
+                         className="d-inline-block pe-2"
+                    />
                     OSWL
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     {
-                    isLoggedIn ? <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2"
-                        onClick={signOutClick}>Sign out</Button> : <>
-                        <Button variant="light" className="fw-bold fs-6 me-3 px-3 py-2"
-                            onClick={loginClick}>Sign in</Button>
-                        <Button className="fw-bold fs-6 px-3 py-2"
-                            onClick={registerClick}>Join Now</Button>
-                    </>
-                } </Navbar.Collapse>
+                        user ?
+                            <>
+                                <Button variant="light" className="fs-6 me-3 px-3 py-2 fw-bold" onClick={signOutClick}>Sign out</Button>
+                                <Link to="/settings">
+                                    {user.profilePicture ? (
+                                        <img
+                                            src={PF + user.profilePicture}
+                                            className="topImage"
+                                            alt="Icon"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={placeholder}
+                                            className="topImage"
+                                            alt=""
+                                        />
+                                    )}
+                                </Link>
+                            </>:
+                            <>
+                            <Button variant="light" className="fs-6 me-4 px-3 py-2 fw-bold"
+                                    onClick={loginClick}>Sign in</Button>
+                            <Button className="fs-6 px-4 py-2 fw-bold"
+                                    onClick={employerRegisterClick}>Find Jobs</Button>
+                        </>
+                    }
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     )

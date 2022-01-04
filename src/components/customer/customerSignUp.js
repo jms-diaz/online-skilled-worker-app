@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import {Formik} from "formik";
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {
     Button,
     Card,
@@ -9,18 +9,17 @@ import {
     Form,
     Row
 } from "react-bootstrap";
+import {useContext, useState} from "react";
+import {registerCustomer} from "../../apiCalls";
 
-export default function EmployerSignUp() {
+export default function CustomerSignUp() {
 
     const schema = yup.object().shape({
-        contactPerson: yup.string().required("Contact person is required"),
-        businessName: yup.string().required("Business name is required"),
         email: yup.string().email().required("Email is required"),
         password: yup.string().required("Password is required"),
         terms: yup.bool().required().oneOf([true], "Terms and conditions must be accepted")
     });
-
-    const navigate = useNavigate();
+    const [error, setError] = useState(false);
 
     return (
         <Container className="h-100 pt-5 pb-2">
@@ -29,7 +28,7 @@ export default function EmployerSignUp() {
                     <Card className="p-lg-5">
                         <Card.Body className="p-5">
                             <div className="form-header">
-                                <h2 className="mb-2">Employer Sign Up</h2>
+                                <h2 className="mb-2">Customer Sign Up</h2>
                                 <p className="m-2 pb-3">Sign up for FREE to start finding skilled workers</p>
                             </div>
 
@@ -37,18 +36,14 @@ export default function EmployerSignUp() {
                                 validateOnChange={false}
                                 validationSchema={schema}
                                 onSubmit={
-                                    (values, {setSubmitting}) => {
-                                        setTimeout(() => {
-                                            alert(JSON.stringify(values, null, 2));
-                                            setSubmitting(false);
-                                        }, 1000);
-                                        navigate("/employer-details")
+                                    async (values) => {
+                                        setError(false);
+                                        const userId = await registerCustomer({values}, setError);
+                                        console.log(userId);
                                     }
                                 }
                                 initialValues={
                                     {
-                                        contactPerson: "",
-                                        businessName: "",
                                         email: "",
                                         password: "",
                                         terms: false
@@ -66,39 +61,6 @@ export default function EmployerSignUp() {
                                 }) => (
                                     <Form noValidate
                                         onSubmit={handleSubmit}>
-                                        <Form.Group className="mb-3" controlId="formContactPerson">
-                                            <Form.Label className="fw-bold">Contact Person Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter contact person name" name="contactPerson"
-                                                value={
-                                                    values.contactPerson
-                                                }
-                                                onChange={handleChange}
-                                                isInvalid={
-                                                    !!errors.contactPerson
-                                                }/>
-
-                                            <Form.Control.Feedback type="invalid">
-                                                {
-                                                errors.contactPerson
-                                            } </Form.Control.Feedback>
-                                        </Form.Group>
-
-                                        <Form.Group className="mb-3" controlId="formBusinessName">
-                                            <Form.Label className="fw-bold">Registered Business Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter business name" name="businessName"
-                                                value={
-                                                    values.businessName
-                                                }
-                                                onChange={handleChange}
-                                                isInvalid={
-                                                    !!errors.businessName
-                                                }/>
-
-                                            <Form.Control.Feedback type="invalid">
-                                                {
-                                                errors.businessName
-                                            } </Form.Control.Feedback>
-                                        </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label className="fw-bold">Email</Form.Label>
@@ -150,9 +112,9 @@ export default function EmployerSignUp() {
                                     </Form>
                                 )
                             }</Formik>
-                            <div className="text-center small mt-2">Already have an account?
-                                <a href="/employer-sign-in">Login here</a>
+                            <div className="text-center small mt-2">Already have an account? <Link className="link" to="/customer-sign-in">Login here</Link>
                             </div>
+                            {error && <span className="text-danger">Something went wrong. Please try again.</span>}
                         </Card.Body>
                     </Card>
                 </Col>

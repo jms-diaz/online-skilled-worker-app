@@ -7,7 +7,7 @@ import {
     Row
 } from "react-bootstrap";
 
-export default function EmployerMainSearch() {
+export default function CustomerMainSearch() {
     return (
         <div className="bg-dark">
             <Container className="py-5">
