@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
 import {Formik} from "formik";
 import * as yup from "yup";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import Map from "../maps";
-import {postCustomerDetails} from "../../apiCalls";
+import {postCustomerDetails} from "../../api/customer";
 
 export default function Details() {
 
     const [coordinates, setCoordinates] = useState([]);
     const [searchActive, setSearchActive] = useState(false);
     const [error, setError] = useState(false);
+    const [addError, setAddError] = useState("");
 
     const schema = yup.object().shape({
         name: yup.string().required("Name is required"),
         profilePicture: yup.string().required("Profile picture is required"),
-        location: yup.string().required("Location is required"),
+        address: yup.string().required("Address is required"),
         contactNumber: yup
             .string()
             .matches(new RegExp('[0-9]{11}'), 'Contact number must be 11 digits')
@@ -24,14 +25,19 @@ export default function Details() {
     });
 
     const addressSearch = () => {
-        const input = document.getElementById("location");
+        const input = document.getElementById("address");
         const xmlHttp = new XMLHttpRequest();
         const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + input.value;
         xmlHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(this.responseText);
-                setCoordinates([response[0].lat, response[0].lon]);
-                setSearchActive(true);
+                console.log(response);
+                if (response.length !== 0) {
+                    setCoordinates([response[0].lat, response[0].lon]);
+                    setSearchActive(true);
+                } else {
+                    setAddError("No results found.");
+                }
             }
         };
         xmlHttp.open("GET", url, true);
@@ -45,7 +51,6 @@ export default function Details() {
                     <h3 className="mb-5 fw-bold">Customer Details</h3>
 
                     <Formik
-                        validateOnChange={false}
                         validationSchema={schema}
                         onSubmit={
                             async (values) => {
@@ -57,7 +62,7 @@ export default function Details() {
                             {
                                 name: "",
                                 profilePicture: "",
-                                location: "",
+                                address: "",
                                 contactNumber: "",
                                 gender: "",
                                 bio: ""
@@ -113,7 +118,7 @@ export default function Details() {
                                     </Row>
 
                                     <Row>
-                                        <Col className="col-md-6 mb-4">
+                                        <Col className="col-md-6">
                                             <Form.Group controlId="gender">
                                                 <Form.Label className="fw-bold">Gender</Form.Label>
                                                 <Form.Select className="form-select"
@@ -140,8 +145,8 @@ export default function Details() {
                                         </Col>
 
                                         {/* Contact Number */}
-                                        <Col className="col-md-6 mb-4">
-                                            <Form.Group className="mb-3" controlId="formContactPerson">
+                                        <Col className="col-md-6">
+                                            <Form.Group className="mb-3" controlId="formContactNumber">
                                                 <Form.Label className="fw-bold">Contact Number</Form.Label>
                                                 <Form.Control
                                                     type="text"
@@ -162,29 +167,34 @@ export default function Details() {
                                     <Row>
                                         <Col className="col-md-10 mb-4">
                                             <Form.Group>
-                                                <Form.Label className="fw-bold">Location</Form.Label>
-                                                <Form.Control type="text" placeholder="Enter location"
-                                                              name="location"
-                                                              id="location"
+                                                <Form.Label className="fw-bold">Address</Form.Label>
+                                                <Form.Control type="text" placeholder="Enter address"
+                                                              name="address"
+                                                              id="address"
                                                               value={
-                                                                  values.location
+                                                                  values.address
                                                               }
                                                               onChange={handleChange}
                                                               isInvalid={
-                                                                  !!errors.location
+                                                                  !!errors.address
                                                               }/>
 
                                                 <Form.Control.Feedback type="invalid">
                                                     {
-                                                        errors.location
+                                                        errors.address
                                                     } </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
 
                                         <Col className="pt-2">
-                                            <Button className="px-4 mt-4 fw-bold" onClick={addressSearch}>Search</Button>
+                                            <Button className="px-4 mt-4 fw-bold"
+                                                    onClick={addressSearch}>Search</Button>
                                         </Col>
                                     </Row>
+
+                                    <div>
+                                        {addError && <span className="text-danger">{addError}</span>}
+                                    </div>
 
                                     <Col className="mb-4">
                                         <Map location={coordinates} searchActive={searchActive}/>
@@ -210,6 +220,46 @@ export default function Details() {
                                                 errors.bio
                                             } </Form.Control.Feedback>
                                     </Form.Group>
+
+                                    {/* Card for input preview */}
+                                    <Card className="mb-5">
+                                        <Card.Body className="p-4">
+                                            <Row>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Full Name</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.name}/>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Address</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.address}/>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Contact Number</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.contactNumber}/>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Gender</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.gender}/>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Col>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-bold">Bio</Form.Label>
+                                                    <Form.Control plaintext readOnly value={values.bio}/>
+                                                </Form.Group>
+                                            </Col>
+                                        </Card.Body>
+                                    </Card>
 
                                     <Col className="text-end">
                                         <Button type="submit" className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end">

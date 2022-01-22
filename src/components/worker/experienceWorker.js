@@ -1,17 +1,11 @@
 import * as yup from "yup";
 import '../../scss/forms.scss';
 import {Formik} from "formik";
-import {
-    Button,
-    Col,
-    Container,
-    Form,
-    Row
-} from "react-bootstrap";
+import {Alert, Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import React, {useState} from "react";
-import {postWorkerExperience} from "../../apiCalls";
+import {postWorkerExperience} from "../../api/worker";
 
-export default function Experience() {
+export default function ExperienceWorker() {
 
     const schema = yup.object().shape({
         companyName: yup.string().required("Company name is required"),
@@ -30,9 +24,11 @@ export default function Experience() {
             <Row className="d-flex h-100">
                 <Col className="pe-xxl-25 pe-md-7">
                     <h3 className="mb-5 fw-bold">Work Experience</h3>
+                    <Alert variant="primary">Your application will be marked for approval. For more information, please contact{' '}
+                        <Alert.Link href="mailto:ranjanjoseph20@gmail.com">ranjanjoseph20@gmail.com</Alert.Link>
+                    </Alert>
 
                     <Formik
-                        validateOnChange={false}
                         validationSchema={schema}
                         onSubmit={
                             async (values) => {
@@ -68,37 +64,23 @@ export default function Experience() {
                                                 <Form.Label className="fw-bold">Company Name</Form.Label>
                                                 <Form.Control type="text" placeholder="Enter company name"
                                                               name="companyName"
-                                                              value={
-                                                                  values.companyName
-                                                              }
-                                                              onChange={handleChange}
-                                                              isInvalid={
-                                                                  !!errors.companyName
-                                                              }/>
-
+                                                              value={values.companyName} onChange={handleChange}
+                                                              isInvalid={!!errors.companyName}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    {
-                                                        errors.companyName
-                                                    } </Form.Control.Feedback>
+                                                    {errors.companyName}
+                                                </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
                                         <Col className="col-md-6 mb-4">
                                             <Form.Group>
                                                 <Form.Label className="fw-bold">Position Title</Form.Label>
                                                 <Form.Control type="text" placeholder="Enter position title"
-                                                              name="positionTitle"
-                                                              value={
-                                                                  values.positionTitle
-                                                              }
+                                                              name="positionTitle" value={values.positionTitle}
                                                               onChange={handleChange}
-                                                              isInvalid={
-                                                                  !!errors.positionTitle
-                                                              }/>
-
+                                                              isInvalid={!!errors.positionTitle}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    {
-                                                        errors.positionTitle
-                                                    } </Form.Control.Feedback>
+                                                    {errors.positionTitle}
+                                                </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -109,35 +91,22 @@ export default function Experience() {
                                                 <Form.Label className="fw-bold">Joined Duration Year</Form.Label>
                                                 <Form.Control type="text" placeholder="Enter start year"
                                                               name="joinedDurationStart"
-                                                              value={
-                                                                  values.joinedDurationStart
-                                                              }
+                                                              value={values.joinedDurationStart}
                                                               onChange={handleChange}
-                                                              isInvalid={
-                                                                  !!errors.joinedDurationStart
-                                                              }/>
-
+                                                              isInvalid={!!errors.joinedDurationStart}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    {
-                                                        errors.joinedDurationStart
-                                                    } </Form.Control.Feedback>
+                                                    {errors.joinedDurationStart}
+                                                </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
 
                                         <Col className="col-md-6 mb-4">
                                             <Form.Group>
                                                 <Form.Label className="fw-bold">Country</Form.Label>
-                                                <Form.Select className="form-select"
-                                                             name="country"
-                                                             value={
-                                                                 values.country
-                                                             }
-                                                             onChange={handleChange}
+                                                <Form.Select className="form-select" name="country"
+                                                             value={values.country} onChange={handleChange}
                                                              onBlur={handleBlur}
-                                                             style={
-                                                                 {backgroundColor: '#fffefe'}
-                                                             }
-                                                >
+                                                             style={{backgroundColor: '#fffefe'}}>
                                                     <option value="" disabled>---SELECT---</option>
                                                     <option value="Afganistan">Afghanistan</option>
                                                     <option value="Albania">Albania</option>
@@ -393,10 +362,8 @@ export default function Experience() {
                                                 </Form.Select>
 
                                                 <div className="invalid-feedback">
-                                                    {
-                                                        errors.country
-                                                    } </div>
-
+                                                    {errors.country}
+                                                </div>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -406,35 +373,23 @@ export default function Experience() {
                                             <Form.Label className="fw-bold">To</Form.Label>
                                             <Form.Control type="text" placeholder="Enter end year"
                                                           name="joinedDurationEnd"
-                                                          value={
-                                                              values.joinedDurationEnd
-                                                          }
+                                                          value={values.joinedDurationEnd}
                                                           onChange={handleChange}
-                                                          isInvalid={
-                                                              !!errors.joinedDurationEnd
-                                                          }/>
-
+                                                          isInvalid={!!errors.joinedDurationEnd}/>
                                             <Form.Control.Feedback type="invalid">
-                                                {
-                                                    errors.joinedDurationEnd
-                                                } </Form.Control.Feedback>
+                                                {errors.joinedDurationEnd}
+                                            </Form.Control.Feedback>
                                         </Form.Group>
                                     </Col>
 
                                     <Col className="mb-4">
                                         <Form.Group>
                                             <Form.Label className="fw-bold">Industry</Form.Label>
-                                            <Form.Select className="form-select"
-                                                         name="industry"
-                                                         value={
-                                                             values.industry
-                                                         }
+                                            <Form.Select className="form-select" name="industry"
+                                                         value={values.industry}
                                                          onChange={handleChange}
                                                          onBlur={handleBlur}
-                                                         style={
-                                                             {backgroundColor: '#fffefe'}
-                                                         }
-                                            >
+                                                         style={{backgroundColor: '#fffefe'}}>
                                                 <option value="" disabled>---SELECT---</option>
                                                 <option id='Accounting'>Accounting</option>
                                                 <option id='Administration & Office Support'>Administration & Office
@@ -489,42 +444,90 @@ export default function Experience() {
                                             </Form.Select>
 
                                             <div className="invalid-feedback">
-                                                {
-                                                    errors.industry
-                                                } </div>
-
-
+                                                {errors.industry}
+                                            </div>
                                         </Form.Group>
                                     </Col>
 
-                                    <Form.Group className="mb-4">
+                                    <Form.Group className="mb-5">
                                         <Form.Label className="fw-bold">Experience Description</Form.Label>
                                         <Form.Control type="text" placeholder="Enter experience description"
                                                       name="experienceDescription"
-                                                      value={
-                                                          values.experienceDescription
-                                                      }
+                                                      value={values.experienceDescription}
                                                       onChange={handleChange}
-                                                      isInvalid={
-                                                          !!errors.experienceDescription
-                                                      }
-                                                      as="textarea"
-                                                      rows={5}
-                                                      required/>
-
+                                                      isInvalid={!!errors.experienceDescription}
+                                                      as="textarea" rows={5} required/>
                                         <Form.Control.Feedback type="invalid">
-                                            {
-                                                errors.experienceDescription
-                                            } </Form.Control.Feedback>
+                                            {errors.experienceDescription}
+                                        </Form.Control.Feedback>
                                     </Form.Group>
 
+                                    {/* Card for input preview */}
+                                    <Card className="mb-5">
+                                        <Card.Body className="p-4">
+                                            <Row>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Company Name</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.companyName}/>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Position Title</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.positionTitle}/>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Joined Duration Start</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.joinedDurationStart}/>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Joined Duration End</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.joinedDurationEnd}/>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Country</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.country}/>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col className="col-md-6 mb-4">
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-bold">Industry</Form.Label>
+                                                        <Form.Control plaintext readOnly value={values.industry}/>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Col>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-bold">Experience Description</Form.Label>
+                                                    <Form.Control plaintext readOnly value={values.experienceDescription}/>
+                                                </Form.Group>
+                                            </Col>
+                                        </Card.Body>
+                                    </Card>
+
                                     <Col className="text-end">
-                                        <Button type="submit" className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end">Finish
-                                            Resume</Button>
+                                        <Button type="submit" className="fs-6 fw-bold btn py-2 px-7 mt-2 mb-4 text-end">
+                                            Finish Resume
+                                        </Button>
                                     </Col>
                                 </Form>
                             )
                         }</Formik>
+                    <div className="text-center">
+                        {error &&
+                        <span className="text-danger text-center">Something went wrong. Please try again.</span>}
+                    </div>
                 </Col>
             </Row>
         </Container>

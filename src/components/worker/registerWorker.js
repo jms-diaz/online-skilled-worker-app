@@ -10,10 +10,10 @@ import {
     Row
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {registerWorker} from "../../apiCalls";
+import {registerWorker} from "../../api/auth";
 import {useState} from 'react';
 
-export default function SignUp() {
+export default function RegisterWorker() {
 
     const schema = yup.object().shape({
         email: yup.string().email().required("Email is required"),
@@ -117,7 +117,9 @@ export default function SignUp() {
                             <div className="text-center small mt-2">
                                 Already have an account? <Link className="link" to="/worker-login"> Login</Link>
                             </div>
-                            {error && <span className="text-danger">Something went wrong. Please try again.</span>}
+                            <div className="text-center">
+                                {error && <span className="text-danger text-center">Something went wrong. Please try again.</span>}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>

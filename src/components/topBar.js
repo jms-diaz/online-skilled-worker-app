@@ -21,21 +21,26 @@ export default function TopBar() {
 
     const signOutClick = () => {
         dispatch({type: "LOGOUT"})
+        localStorage.clear();
+        sessionStorage.clear();
         navigate("/");
     }
 
-    //console.log(user);
     return (
         <Navbar bg="light">
             <Container className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <Navbar.Brand href="/" className="font-monospace fs-4 fw-bold py-3">
-                    <img alt=""
-                         src={logo}
-                         width="60"
-                         height="50"
-                         className="d-inline-block pe-2"
-                    />
-                    OSWL
+                <Navbar.Brand className="font-monospace fs-4 fw-bold py-3">
+                    {
+                    }
+                    <Link to="/" className="text-decoration-none">
+                        <img alt=""
+                             src={logo}
+                             width="60"
+                             height="50"
+                             className="d-inline-block pe-2"
+                        />
+                        OSWL
+                    </Link>
                 </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     {

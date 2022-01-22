@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {Alert, Button, Card, Col, Form, Row} from "react-bootstrap";
 import Map from "../maps";
 
 const WorkerDetails = ({formik, childToParent}) => {
     const [coordinates, setCoordinates] = useState([]);
     const [searchActive, setSearchActive] = useState(false);
+    const [addError, setAddError] = useState("");
+
 
     const addressSearch = () => {
         const input = document.getElementById('address');
@@ -13,22 +15,25 @@ const WorkerDetails = ({formik, childToParent}) => {
         xmlHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(this.responseText);
-                setCoordinates([response[0].lat, response[0].lon]);
-                setSearchActive(true);
-                childToParent([response[0].lat, response[0].lon]);
+                if (response.length !== 0) {
+                    setCoordinates([response[0].lat, response[0].lon]);
+                    setSearchActive(true);
+                    childToParent([response[0].lat, response[0].lon]);
+                } else {
+                    setAddError("No results found.");
+                }
             }
         };
         xmlHttp.open("GET", url, true);
         xmlHttp.send();
     }
-
-    // if (file) {
-    //     image(file);
-    // }
     return (
         <>
             <h3 className="mb-5 fw-bold">Set Up Your Resume</h3>
-
+            <Alert variant="primary">Your application will be marked for approval. For more information, please
+                contact{' '}
+                <Alert.Link href="mailto:ranjanjoseph20@gmail.com">ranjanjoseph20@gmail.com</Alert.Link>
+            </Alert>
             <Row>
                 <Col className="col-md-6 mb-4">
                     <Form.Group className="mb-3" controlId="formFullName">
@@ -50,7 +55,7 @@ const WorkerDetails = ({formik, childToParent}) => {
                         <Form.Label className="fw-bold">Profile Picture</Form.Label>
                         <Form.Control type="file" name="detailsForm.profilePicture"
                                       onChange={(e) => {
-                                          formik.setFieldValue("detailsForm.profilePicture",e.target.files[0]);
+                                          formik.setFieldValue("detailsForm.profilePicture", e.target.files[0]);
                                       }}
                                       onBlur={formik.handleBlur}
                         />
@@ -89,7 +94,7 @@ const WorkerDetails = ({formik, childToParent}) => {
                         >
                             <option value="" disabled>---SELECT---</option>
                             <option value="Male">Male</option>
-                            <option value="Male">Female</option>
+                            <option value="Female">Female</option>
                         </Form.Select>
 
                         {!!formik.errors.detailsForm && (
@@ -103,18 +108,18 @@ const WorkerDetails = ({formik, childToParent}) => {
 
             <Row>
                 <Col className="mb-4">
-                <Form.Group className="mb-3" controlId="formOccupation">
-                    <Form.Label className="fw-bold">Current Occupation</Form.Label>
-                    <Form.Control type="text" placeholder="Enter occupation" name="detailsForm.occupation"
-                                  value={formik.values.detailsForm.occupation} onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                    />
-                    {!!formik.errors.detailsForm && (
-                        <Form.Control.Feedback type="invalid">
-                            {formik.errors.detailsForm.occupation}
-                        </Form.Control.Feedback>
-                    )}
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formOccupation">
+                        <Form.Label className="fw-bold">Current Occupation</Form.Label>
+                        <Form.Control type="text" placeholder="Enter occupation" name="detailsForm.occupation"
+                                      value={formik.values.detailsForm.occupation} onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}
+                        />
+                        {!!formik.errors.detailsForm && (
+                            <Form.Control.Feedback type="invalid">
+                                {formik.errors.detailsForm.occupation}
+                            </Form.Control.Feedback>
+                        )}
+                    </Form.Group>
                 </Col>
             </Row>
 
@@ -140,6 +145,10 @@ const WorkerDetails = ({formik, childToParent}) => {
                     <Button className="px-4 mt-4 fw-bold" onClick={addressSearch}>Search</Button>
                 </Col>
             </Row>
+
+            <div>
+                {addError && <span className="text-danger">{addError}</span>}
+            </div>
 
             <Col className="mb-5">
                 <Map location={coordinates} searchActive={searchActive}/>

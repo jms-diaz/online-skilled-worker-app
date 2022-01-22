@@ -1,3 +1,6 @@
+import * as yup from "yup";
+import {Formik} from "formik";
+import {Link} from "react-router-dom";
 import {
     Button,
     Card,
@@ -6,42 +9,44 @@ import {
     Form,
     Row
 } from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {Formik} from "formik";
-import * as yup from "yup";
-import {useContext, useState} from "react";
-import {loginCustomer} from "../../apiCalls";
-import {Context} from "../../context/Context";
+import {useState} from "react";
+import {registerCustomer} from "../../api/auth";
 
-export default function CustomerSignIn() {
+export default function RegisterCustomer() {
 
-    const schema = yup.object().shape({email: yup.string().email().required("Email is required"), password: yup.string().required("Password is required")});
-    const {dispatch} = useContext(Context);
+    const schema = yup.object().shape({
+        email: yup.string().email().required("Email is required"),
+        password: yup.string().required("Password is required"),
+        terms: yup.bool().required().oneOf([true], "Terms and conditions must be accepted")
+    });
     const [error, setError] = useState(false);
 
     return (
-        <Container className="h-100 pt-7 pb-2">
+        <Container className="h-100 pt-5 pb-2">
             <Row className="d-flex justify-content-center h-100">
                 <Col className="col-12 col-md-9 col-lg-7 col-xl-6">
                     <Card className="p-lg-5">
                         <Card.Body className="p-5">
                             <div className="form-header">
-                                <h2 className="mb-2">Customer Log In</h2>
-                                <p className="m-2 pb-3">Start finding skilled workers online</p>
+                                <h2 className="mb-2">Customer Sign Up</h2>
+                                <p className="m-2 pb-3">Sign up for FREE to start finding skilled workers</p>
                             </div>
+
                             <Formik
                                 validateOnChange={false}
                                 validationSchema={schema}
                                 onSubmit={
                                     async (values) => {
                                         setError(false);
-                                        await loginCustomer({values}, dispatch);
+                                        const userId = await registerCustomer({values}, setError);
+                                        console.log(userId);
                                     }
                                 }
                                 initialValues={
                                     {
                                         email: "",
-                                        password: ""
+                                        password: "",
+                                        terms: false
                                     }
                             }>
                                 {
@@ -56,6 +61,7 @@ export default function CustomerSignIn() {
                                 }) => (
                                     <Form noValidate
                                         onSubmit={handleSubmit}>
+
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label className="fw-bold">Email</Form.Label>
                                             <Form.Control type="email" placeholder="Enter email" name="email"
@@ -89,17 +95,33 @@ export default function CustomerSignIn() {
                                                 errors.password
                                             } </Form.Control.Feedback>
                                         </Form.Group>
-                                        <Button type="submit" className="fs-6 fw-bold btn py-2 w-100 mt-2">Sign In</Button>
+
+                                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                            <Form.Check required name="terms" label="I accept the Terms of Use and Privacy Policy"
+                                                onChange={handleChange}
+                                                isInvalid={
+                                                    !!errors.terms
+                                                }
+                                                feedback={
+                                                    errors.terms
+                                                }
+                                                feedbackType="invalid"
+                                                id="validationFormik0"/>
+                                        </Form.Group>
+                                        <Button type="submit" className="fs-6 fw-bold btn py-2 w-100">Create Account</Button>
                                     </Form>
                                 )
                             }</Formik>
-                            <div className="text-center small mt-2">Don't have an account? <Link className="link" to="/customer-sign-up">Sign up</Link>
+                            <div className="text-center small mt-2">Already have an account? <Link className="link" to="/customer-sign-in">Login here</Link>
                             </div>
-                            {error && <span className="text-danger">Something went wrong. Please try again.</span>}
+                            <div className="text-center">
+                                {error && <span className="text-danger text-center">Something went wrong. Please try again.</span>}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
         </Container>
     )
+
 }

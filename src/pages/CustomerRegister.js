@@ -1,5 +1,5 @@
-import CustomerSignUp from "../components/customer/customerSignUp";
+import RegisterCustomer from "../components/customer/registerCustomer";
 
 export default function CustomerRegister() {
-    return (<CustomerSignUp/>)
+    return (<RegisterCustomer/>)
 }

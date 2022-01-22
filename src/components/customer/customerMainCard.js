@@ -1,20 +1,39 @@
-import React, {useState} from 'react';
-import {Button, Card, Col, Modal, Row} from "react-bootstrap";
-import placeholder from "../../images/placeholder.png";
-import {calculateManhattanDistance} from "../../apiCalls";
+import React, {useEffect, useState} from 'react';
+import {Card, Col} from "react-bootstrap";
+import {calculateManhattanDistance} from "../../api/manhattan";
 import SingleCustomer from "./singleCustomer";
+import {getCurrentCustomer} from "../../api/customer";
 
 export default function CustomerMainCard({worker}) {
+
     const [modalShow, setModalShow] = useState(false);
     const PF = "http://localhost:5000/images/";
+    const educ = worker.education[0];
+    const [userLatitude, setUserLatitude] = useState();
+    const [userLongitude, setUserLongitude] = useState();
+    const [name, setName] = useState("");
 
     const handleClick = () => {
         setModalShow(true);
     }
+    useEffect(() => {
+        const userArray = JSON.parse(sessionStorage.getItem("user"));
+        const userId = userArray.id;
+        getCurrentCustomer(userId).then(
+            r => {
+                const data = r.data.customer_temp_id;
+                setUserLatitude(data.latitude)
+                setUserLongitude(data.longitude)
+                setName(data.name);
+            }
+        );
+    }, []);
 
     return (
         <>
-            <SingleCustomer worker={worker} show={modalShow} onHide={() => setModalShow(false)}/>
+            <SingleCustomer name={name} worker={worker}
+                            show={modalShow} onHide={() => setModalShow(false)}
+            />
             <Col>
                 <Card className="p-5 text-start h-100"
                       onClick={handleClick} style={{cursor: "pointer"}}>
@@ -25,11 +44,11 @@ export default function CustomerMainCard({worker}) {
                         <Card.Title className="fw-bold">{worker.fullName}</Card.Title>
                         <Card.Text className="text-muted fs-6">{worker.occupation}</Card.Text>
                         <Card.Text
-                            className="text-muted">{worker.fieldOfStudy + " - " + worker.universityName}</Card.Text>
+                            className="text-muted">{educ.fieldOfStudy + " - " + educ.universityName}</Card.Text>
                         <Card.Subtitle
                             className="fw-bold pt-5">{
-                                calculateManhattanDistance([worker.latitude, worker.longitude])
-                            } meters away</Card.Subtitle>
+                            calculateManhattanDistance([worker.latitude, worker.longitude], [userLatitude, userLongitude])
+                        } kilometers away</Card.Subtitle>
                     </Card.Body>
                 </Card>
             </Col>

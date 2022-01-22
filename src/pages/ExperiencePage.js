@@ -1,6 +1,6 @@
-import Experience from "../components/worker/experience";
+import ExperienceWorker from "../components/worker/experienceWorker";
 
 export default function ExperiencePage() {
     return (
-        <Experience/>)
+        <ExperienceWorker/>)
 }

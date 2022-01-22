@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
 import '../scss/notFound.scss';
+import { useNavigate} from "react-router-dom";
 
 export default function NotFound() {
+    const navigate = useNavigate();
+
     return (
         <div>
             <svg width="380px" height="500px" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +32,8 @@ export default function NotFound() {
                 <p>Page not found</p>
                 <div className="buttons-con">
                     <div className="action-link-wrap">
-                        <Button className="btn fw-bold btn-primary btn-lg px-5 py-3 fs-6 me-md-4">
+                        <Button className="btn fw-bold btn-primary btn-lg px-5 py-3 fs-6 me-md-4"
+                                onClick={() => navigate(-1)}>
                             Go Back!
                         </Button>
                     </div>

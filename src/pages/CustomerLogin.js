@@ -1,6 +1,6 @@
-import CustomerSignIn from "../components/customer/customerSignIn";
+import LoginCustomer from "../components/customer/loginCustomer";
 
 export default function CustomerLogin() {
     return (
-        <CustomerSignIn/>)
+        <LoginCustomer/>)
 }

@@ -2,11 +2,11 @@ import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {Formik} from "formik";
 import * as yup from "yup";
 import {Link} from "react-router-dom";
-import {loginWorker} from "../../apiCalls";
+import {loginWorker} from "../../api/auth";
 import {useContext, useState} from "react";
 import {Context} from "../../context/Context";
 
-export default function SignIn() {
+export default function LoginWorker() {
 
     const schema = yup.object().shape({
         email: yup.string().email().required("Email is required"),
@@ -31,7 +31,7 @@ export default function SignIn() {
                                 onSubmit={
                                     async (values) => {
                                         setError(false);
-                                        await loginWorker({values}, dispatch);
+                                        await loginWorker({values}, dispatch, setError);
                                     }
                                 }
                                 initialValues={
@@ -95,7 +95,9 @@ export default function SignIn() {
                                                                                                  to="/worker-register">Sign
                                 up</Link>
                             </div>
-                            {error && <span className="text-danger">Something went wrong. Please try again.</span>}
+                            <div className="text-center">
+                                {error && <span className="text-danger text-center">Something went wrong. Please try again.</span>}
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>

@@ -1,12 +1,13 @@
 import WorkerDetails from "../components/worker/workerDetails";
 import WorkerEducation from "../components/worker/workerEducation";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useFormik} from "formik";
 import * as yup from 'yup';
 import React, {useState} from "react";
-import {postWorkerDetails, uploadPhoto} from "../apiCalls";
+import {uploadPhoto} from "../api/auth";
+import {postWorkerDetails, postWorkerEduc} from "../api/worker";
 
-export default function ResumePage() {
+export default function WorkerResumePage() {
     const [error, setError] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
 
@@ -67,7 +68,8 @@ export default function ResumePage() {
             }
             console.log(values.detailsForm.profilePicture);
             setError(false);
-            await postWorkerDetails({values}, setError, coordinates);
+            await postWorkerDetails(values.detailsForm, setError, coordinates);
+            await postWorkerEduc(values.educationForm, setError);
         }
     })
     return (
@@ -88,6 +90,9 @@ export default function ResumePage() {
                                     Next Page
                                 </Button>
                             </Col>
+                            <div className="text-center">
+                                {error && <span className="text-danger text-center">Something went wrong. Please try again.</span>}
+                            </div>
                         </Row>
                     </Form>
 
