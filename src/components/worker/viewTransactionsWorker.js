@@ -19,7 +19,9 @@ export default function ViewTransactionsWorker() {
             }
         )
         getTakenJobs(name).then(response => {
+            console.log(name);
             const allJobs = response.data;
+            console.log(allJobs);
             const data = allJobs.map(d => (
                 {
                     jobTitle: d.jobTitle,
@@ -30,13 +32,14 @@ export default function ViewTransactionsWorker() {
                     completed: d.completed ? "Completed" : "Pending",
                     status: d.paid ? "Paid" : "Pending",
                 }));
+            console.log(data);
             setJobs(data);
         }).catch(error => {
             setJobs([]); // reset the [] here - this is optional and is based on expected behaviour
             console.log(error);
         })
             .finally(() => setLoading(false));
-    }, [name, userId]);
+    }, [name]);
 
     const columns = useMemo(
         () => [
@@ -65,7 +68,7 @@ export default function ViewTransactionsWorker() {
                 accessor: 'completed'
             },
             {
-                Header: 'Payment',
+                Header: 'Payment Status',
                 accessor: 'status'
             }
         ],

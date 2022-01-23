@@ -7,9 +7,10 @@ import {Context} from "../../context/Context";
 export default function SingleWorker(props) {
 
     const PF = "http://localhost:5000/images/";
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState();
     const [workerName, setWorkerName] = useState("");
     const {user} = useContext(Context);
+    const [verified, setVerified] = useState(false);
 
     const handleClick = async (jobTitle, customerName) => {
         const jobDetails = {
@@ -27,9 +28,15 @@ export default function SingleWorker(props) {
             r => {
                 const data = r.data.worker_temp_id;
                 setWorkerName(data.fullName);
+                setVerified(data.verified);
             }
         )
-    }, []);
+        checkVerified();
+    }, [verified]);
+
+    const checkVerified = () => {
+        setDisabled(!verified);
+    }
 
 
     return (
