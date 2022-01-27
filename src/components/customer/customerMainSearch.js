@@ -20,7 +20,6 @@ export default function CustomerMainSearch() {
         const jobTitle = document.getElementById("jobTitle");
         const location = document.getElementById("location");
         const res = await searchWorkers(jobTitle.value, location.value);
-        console.log(res.data);
         if (res.status === 200) {
             navigate("/search");
         }

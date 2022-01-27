@@ -56,7 +56,6 @@ export default function AddJobListing() {
         <Formik validationSchema={schema}
                 onSubmit={
                     async (values) => {
-                        console.log(coordinates);
                         await postJob({values}, coordinates, name);
                     }
                 }

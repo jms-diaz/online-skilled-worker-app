@@ -45,10 +45,6 @@ function App() {
                     user ? <TransactionsCustomer/> : <Home/>}/>
                 <Route path="/view-transactions-worker" element={
                     user ? <TransactionsWorker/> : <Home/>}/>
-                <Route path="/jobs" element={
-                    user ? <WorkerMain/> : <Home/>}/>
-                <Route path="/workers" element={
-                    user ? <CustomerMain/> : <Home/>}/>
             </Routes>
         </Router>
     );

@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {Formik} from "formik";
 import * as yup from "yup";
 import {useContext, useState} from "react";
-import {loginAdmin, loginCustomer} from "../../api/auth";
+import {loginCustomer} from "../../api/auth";
 import {Context} from "../../context/Context";
 
 export default function LoginCustomer() {

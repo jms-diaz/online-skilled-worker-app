@@ -8,7 +8,6 @@ export const postJob = async (jobDetails, coordinates, name) => {
             latitude: coordinates[0],
             longitude: coordinates[1]
         }
-        console.log(jobDetails);
         const res = await axios.post("jobs/create-job", jobDetails);
         res.data && window.location.replace('/workers');
     } catch (err) {

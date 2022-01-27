@@ -8,7 +8,6 @@ export const postCustomerDetails = async (customerDetails, setError, coordinates
             longitude: coordinates[1],
             user_id: JSON.parse(localStorage.getItem("user_id"))
         };
-        console.log(localStorage.getItem("user_id"));
         const res = await axios.post("/customers/details", customerDetails);
         console.log(res);
         localStorage.setItem("name", res.data.name);

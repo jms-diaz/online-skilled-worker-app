@@ -5,17 +5,20 @@ import {
     Form,
     Row
 } from "react-bootstrap";
-import {useState} from "react";
+import React, {useState} from "react";
 import {searchJobs} from "../../api/worker";
+import {searchWorkers} from "../../api/customer";
 
 export default function WorkerMainSearch() {
+    const [searchActive, setSearchActive] = useState(false);
+    const [searchResults, setSearchResults] = useState();
 
-    const [jobTitle, setJobTitle] = useState("");
-    const [jobSpecialization, setJobSpecialization] = useState("");
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await searchJobs(jobTitle, jobSpecialization);
+    const handleSubmit = async () => {
+        setSearchActive(true);
+        const jobTitle = document.getElementById("jobTitle");
+        const location = document.getElementById("location");
+        const res = await searchWorkers(jobTitle.value, location.value);
+        setSearchResults(res.data);
     }
 
     return (
@@ -30,21 +33,21 @@ export default function WorkerMainSearch() {
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Job Title</Form.Label>
-                                        <Form.Control type="text" placeholder="Construction Worker"
-                                                      onChange={(e) => setJobTitle(e.target.value)}/>
+                                        <Form.Control type="text" placeholder="Senior Software Engineer"
+                                                      id="jobTitle"/>
+                                        />
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-5">
                                     <Form.Group>
-                                        <Form.Label className="text-white">Job Specialization</Form.Label>
-                                        <Form.Control type="text" placeholder="Engineering"
-                                                      onChange={(e) => setJobSpecialization(e.target.value)}/>
+                                        <Form.Label className="text-white">Location</Form.Label>
+                                        <Form.Control type="text" placeholder="Tondo, Manila City" id="location"/>
+                                        />
                                     </Form.Group>
                                 </Col>
                                 <Col className="col-md-2">
-                                    <Button className="fs-6 fw-bold btn py-2 px-5 mt-md-4" type="submit">
-                                        Search
-                                    </Button>
+                                    <Button className="fs-6 fw-bold btn py-2 px-5 mt-md-4"
+                                            onClick={handleSubmit}>Search</Button>
                                 </Col>
                             </Row>
                         </Form>

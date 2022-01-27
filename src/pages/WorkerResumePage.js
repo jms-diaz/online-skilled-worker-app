@@ -12,7 +12,6 @@ export default function WorkerResumePage() {
     const [coordinates, setCoordinates] = useState([]);
 
     const childToParent = (locationCoordinates) => {
-        console.log(locationCoordinates);
         setCoordinates(locationCoordinates);
     }
 
@@ -66,7 +65,6 @@ export default function WorkerResumePage() {
             } catch (err) {
                 console.log(err);
             }
-            console.log(values.detailsForm.profilePicture);
             setError(false);
             await postWorkerDetails(values.detailsForm, setError, coordinates);
             await postWorkerEduc(values.educationForm, setError);

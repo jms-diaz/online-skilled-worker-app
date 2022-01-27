@@ -18,7 +18,6 @@ export default function SingleWorker(props) {
             customerName,
             workerName
         }
-        console.log(jobDetails);
         const res = await applyJob(jobDetails);
         res.data && setDisabled(true);
     }

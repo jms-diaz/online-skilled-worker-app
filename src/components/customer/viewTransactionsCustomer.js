@@ -16,7 +16,6 @@ export default function ViewTransactionsCustomer() {
         getCurrentCustomer(userId).then(
             r => {
                 const data = r.data.customer_temp_id;
-                console.log(r)
                 setName(data.name);
             }
         )
@@ -31,7 +30,6 @@ export default function ViewTransactionsCustomer() {
                 worker: d.takenBy,
                 status: d.completed ? "Completed" : "Pending",
             }));
-            console.log(data);
             setJobs(data);
         }).catch(error => {
             setJobs([]); // reset the [] here - this is optional and is based on expected behaviour

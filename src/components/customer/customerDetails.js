@@ -31,7 +31,6 @@ export default function Details() {
         xmlHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(this.responseText);
-                console.log(response);
                 if (response.length !== 0) {
                     setCoordinates([response[0].lat, response[0].lon]);
                     setSearchActive(true);

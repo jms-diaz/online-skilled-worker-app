@@ -39,7 +39,6 @@ export default function RegisterCustomer() {
                                     async (values) => {
                                         setError(false);
                                         const userId = await registerCustomer({values}, setError);
-                                        console.log(userId);
                                     }
                                 }
                                 initialValues={

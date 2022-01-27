@@ -10,7 +10,6 @@ export const postWorkerDetails = async (workerDetails, setError, coordinates) =>
         }
         const res = await axios.post("/workers/details", workerDetails);
         localStorage.setItem("name", res.data.fullName);
-        console.log(res);
 
     } catch (e) {
         setError(true);
@@ -23,7 +22,6 @@ export const postWorkerEduc = async (workerEduc, setError) => {
             ...workerEduc,
             name: localStorage.getItem("name")
         }
-        console.log(localStorage.getItem("name"));
         const res = await axios.post("/education/add-education", workerEduc);
         res.data && window.location.replace('/experience')
     } catch (e) {
@@ -37,7 +35,6 @@ export const postWorkerExperience = async (workerExperience, setError) => {
             ...workerExperience.values,
             name: localStorage.getItem("name"),
         }
-        console.log(workerExperience);
         const res = await axios.post("/experience/add-experience", workerExperience);
         res.data && window.location.replace('/worker-login')
     } catch (e) {
@@ -78,11 +75,11 @@ export const applyJob  = async (jobDetails) => {
     return await axios.put("/jobs/apply", jobDetails);
 }
 
-export const searchJobs = async (jobTitle, jobSpecialization) => {
+export const searchJobs = async (jobTitle, jobLocation) => {
     return await axios.get("/jobs/search", {
         params: {
             jobTitle: jobTitle,
-            jobSpecialization: jobSpecialization
+            jobLocation: jobLocation
         }
     });
 }

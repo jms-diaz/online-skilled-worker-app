@@ -6,7 +6,7 @@ export const loginWorker = async (userCredentials, dispatch, setError) => {
     try {
         const res = await axios.post("/users/login-worker", userCredentials);
         dispatch({type: "LOGIN_SUCCESS", payload: res.data});
-        res.data && window.location.replace('/jobs')
+        res.data && window.location.replace('/')
     } catch (err) {
         setError(true);
         dispatch({type: "LOGIN_FAIL", payload: err});
@@ -16,7 +16,6 @@ export const loginWorker = async (userCredentials, dispatch, setError) => {
 export const registerWorker = async (userCredentials, setError) => {
     try {
         const res = await axios.post("/users/register-worker", userCredentials);
-        console.log(res);
         localStorage.setItem("user_id", res.data.user_id);
         res.data && window.location.replace('/resume');
     } catch (e) {
@@ -30,7 +29,7 @@ export const loginCustomer = async (userCredentials, dispatch, setError) => {
     try {
         const res = await axios.post("/users/login-customer", userCredentials);
         dispatch({type: "LOGIN_SUCCESS", payload: res.data});
-        res.data && window.location.replace('/workers');
+        res.data && window.location.replace('/');
     } catch (err) {
         setError(true);
         dispatch({type: "LOGIN_FAIL", payload: err});
@@ -44,19 +43,6 @@ export const registerCustomer = async (userCredentials, setError) => {
         res.data && window.location.replace('/customer-details');
     } catch (e) {
         setError(true);
-    }
-}
-
-export const loginAdmin = async (adminCredentials, dispatch, setError) => {
-    dispatch({type: "LOGIN_START"});
-
-    try {
-        const res = await axios.post("/users/login-admin", adminCredentials);
-        dispatch({type: "LOGIN_SUCCESS", payload: res.data});
-        res.data && window.location.replace('/dashboard');
-    } catch (err) {
-        setError(true);
-        dispatch({type: "LOGIN_FAIL", payload: err});
     }
 }
 
