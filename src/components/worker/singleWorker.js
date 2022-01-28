@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Col, Modal, Row} from "react-bootstrap";
+import {Button, Card, Col, Modal, Row} from "react-bootstrap";
 import {calculateManhattanDistance} from "../../api/manhattan";
 import {applyJob, getCurrentWorker} from "../../api/worker";
 import {Context} from "../../context/Context";
@@ -78,6 +78,9 @@ export default function SingleWorker(props) {
                     calculateManhattanDistance([props.job.latitude, props.job.longitude], [props.latitude, props.longitude])
                 } kilometers away</p>
             </Modal.Body>
+            <Card.Footer>
+                <small className="text-muted text-center">For more information, please contact <a href="mailto:oswl-admin@support.com">oswl-admin@support.com</a></small>
+            </Card.Footer>
         </Modal>
     )
 }

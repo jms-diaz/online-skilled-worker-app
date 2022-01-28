@@ -37,7 +37,7 @@ export default function CustomerMainSearch() {
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Role Title</Form.Label>
-                                        <Form.Control type="text" placeholder="Senior Software Engineer" id="jobTitle"/>
+                                        <Form.Control type="text" placeholder="Plumber/Electrician" id="jobTitle"/>
                                         />
                                     </Form.Group>
                                 </Col>

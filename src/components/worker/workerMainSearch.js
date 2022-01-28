@@ -33,7 +33,7 @@ export default function WorkerMainSearch() {
                                 <Col className="col-md-5">
                                     <Form.Group>
                                         <Form.Label className="text-white">Job Title</Form.Label>
-                                        <Form.Control type="text" placeholder="Senior Software Engineer"
+                                        <Form.Control type="text" placeholder="Plumber/Electrician"
                                                       id="jobTitle"/>
                                         />
                                     </Form.Group>

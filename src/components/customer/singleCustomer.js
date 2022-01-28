@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Modal, Row} from "react-bootstrap";
+import {Button, Card, Col, Modal, Row} from "react-bootstrap";
 import {getCurrentCustomer} from "../../api/customer";
 import {hireWorkers} from "../../api/customer";
 
@@ -92,6 +92,9 @@ export default function SingleCustomer(props) {
                 <p className="text-muted mb-1">{exp.positionTitle} - {exp.companyName} ({exp.country})</p>
                 <p className="text-muted mb-1">From {exp.joinedDurationStart} to {exp.joinedDurationEnd}</p>
             </Modal.Body>
+            <Card.Footer>
+                <small className="text-muted text-center">For more information, please contact <a href="mailto:oswl-admin@support.com">oswl-admin@support.com</a></small>
+            </Card.Footer>
         </Modal>
     )
 }
