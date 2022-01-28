@@ -47,7 +47,6 @@ export default function TopBar() {
                         user ?
                             <>
                                 <Button variant="light" className="fs-6 me-3 px-3 py-2 fw-bold" onClick={signOutClick}>Sign out</Button>
-                                <Link to="/settings">
                                     {user.profilePicture ? (
                                         <img
                                             src={PF + user.profilePicture}
@@ -61,7 +60,6 @@ export default function TopBar() {
                                             alt=""
                                         />
                                     )}
-                                </Link>
                             </>:
                             <>
                             <Button variant="light" className="fs-6 me-4 px-3 py-2 fw-bold"
