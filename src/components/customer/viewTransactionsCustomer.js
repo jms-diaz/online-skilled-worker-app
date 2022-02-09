@@ -1,19 +1,17 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {getCreatedJobs, getCurrentCustomer} from "../../api/customer";
 import CustomerJobTable from "./customerJobTable";
-import {getCurrentWorker} from "../../api/worker";
+import {Context} from "../../context/Context";
 
 export default function ViewTransactionsCustomer() {
     const [loading, setLoading] = useState(false);
     const [jobs, setJobs] = useState([]);
-    const [name, setName] = useState("");
-
-    const userArray = JSON.parse(sessionStorage.getItem("user"));
-    const userId = userArray.id;
+    const [name, setName] = useState("")
+    const {user} = useContext(Context);
 
     useEffect(() => {
         setLoading(true);
-        getCurrentCustomer(userId).then(
+        getCurrentCustomer(user.id).then(
             r => {
                 const data = r.data.customer_temp_id;
                 setName(data.name);
@@ -21,52 +19,24 @@ export default function ViewTransactionsCustomer() {
         )
         getCreatedJobs(name).then(response => {
             const allJobs = response.data;
-            const data = allJobs.map(d => (
+            const data = allJobs.jobsCreated.map(d => (
                 {
                 jobTitle: d.jobTitle,
                 jobDescription: d.jobDescription,
                 jobLocation: d.jobLocation,
                 salary: d.salary,
                 worker: d.takenBy,
-                status: d.completed ? "Completed" : "Pending",
-            }));
+                completed: d.completed ? "Completed" : "Pending",
+                status: d.paid ? "Paid" : "Pending",
+                }));
             setJobs(data);
         }).catch(error => {
             setJobs([]); // reset the [] here - this is optional and is based on expected behaviour
             console.log(error);
         })
             .finally(() => setLoading(false));
-    }, [name, userId]);
+    }, [name, user]);
 
-    const columns = useMemo(
-        () => [
-            {
-                Header: 'Job Title',
-                accessor: 'jobTitle'
-            },
-            {
-                Header: 'Job Description',
-                accessor: 'jobDescription'
-            },
-            {
-                Header: 'Job Location',
-                accessor: 'jobLocation'
-            },
-            {
-                Header: 'Salary',
-                accessor: 'salary'
-            },
-            {
-                Header: 'Worker',
-                accessor: 'worker'
-            },
-            {
-                Header: 'Status',
-                accessor: 'status'
-            }
-        ],
-        []
-    )
 
     if (jobs.length === 0 && !loading) {
         return <div className="mb-5">No data available</div>;
@@ -75,7 +45,7 @@ export default function ViewTransactionsCustomer() {
     return (
         <div className="mb-5">
             {loading && <span>Fetching data</span>}
-            <CustomerJobTable columns={columns} data={jobs}/>
+            <CustomerJobTable data={jobs} />
         </div>
     )
 }

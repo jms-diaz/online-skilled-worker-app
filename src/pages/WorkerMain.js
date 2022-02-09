@@ -40,7 +40,7 @@ export default function WorkerMain() {
                                     <Col className="col-md-5">
                                         <Form.Group>
                                             <Form.Label className="text-white">Job Title</Form.Label>
-                                            <Form.Control type="text" placeholder="Senior Software Engineer"
+                                            <Form.Control type="text" placeholder="Electrician/Plumber"
                                                           id="jobTitle"/>
                                             />
                                         </Form.Group>

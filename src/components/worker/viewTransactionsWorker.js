@@ -1,18 +1,17 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {getCurrentWorker, getTakenJobs} from "../../api/worker";
 import WorkerJobTable from "./workerJobTable";
+import {Context} from "../../context/Context";
 
 export default function ViewTransactionsWorker() {
     const [loading, setLoading] = useState(false);
     const [jobs, setJobs] = useState([]);
     const [name, setName] = useState("");
-
-    const userArray = JSON.parse(sessionStorage.getItem("user"));
-    const userId = userArray.id;
+    const {user} = useContext(Context);
 
     useEffect(() => {
         setLoading(true);
-        getCurrentWorker(userId).then(
+        getCurrentWorker(user.id).then(
             r => {
                 const data = r.data.worker_temp_id;
                 setName(data.fullName);
@@ -38,40 +37,6 @@ export default function ViewTransactionsWorker() {
             .finally(() => setLoading(false));
     }, [name]);
 
-    const columns = useMemo(
-        () => [
-            {
-                Header: 'Job Title',
-                accessor: 'jobTitle'
-            },
-            {
-                Header: 'Created By',
-                accessor: 'createdBy'
-            },
-            {
-                Header: 'Description',
-                accessor: 'jobDescription'
-            },
-            {
-                Header: 'Location',
-                accessor: 'jobLocation'
-            },
-            {
-                Header: 'Salary',
-                accessor: 'salary'
-            },
-            {
-                Header: 'Job Status',
-                accessor: 'completed'
-            },
-            {
-                Header: 'Payment Status',
-                accessor: 'status'
-            }
-        ],
-        []
-    )
-
     if (jobs.length === 0 && !loading) {
         return <div className="mb-5">No data available</div>;
     }
@@ -79,7 +44,7 @@ export default function ViewTransactionsWorker() {
     return (
         <div className="mb-5">
             {loading && <span>Fetching data</span>}
-            <WorkerJobTable columns={columns} data={jobs}/>
+            <WorkerJobTable data={jobs}/>
         </div>
     )
 }

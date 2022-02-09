@@ -3,6 +3,7 @@ import {Button, Card, Col, Modal, Row} from "react-bootstrap";
 import {calculateManhattanDistance} from "../../api/manhattan";
 import {applyJob, getCurrentWorker} from "../../api/worker";
 import {Context} from "../../context/Context";
+import {useNavigate} from "react-router-dom";
 
 export default function SingleWorker(props) {
 
@@ -11,6 +12,7 @@ export default function SingleWorker(props) {
     const [workerName, setWorkerName] = useState("");
     const {user} = useContext(Context);
     const [verified, setVerified] = useState(false);
+    const navigate = useNavigate();
 
     const handleClick = async (jobTitle, customerName) => {
         const jobDetails = {

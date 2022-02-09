@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Modal, Row} from "react-bootstrap";
-import {getCurrentCustomer} from "../../api/customer";
-import {hireWorkers} from "../../api/customer";
+import {getCurrentCustomer, hireWorkers} from "../../api/customer";
 
 export default function SingleCustomer(props) {
     const PF = "http://localhost:5000/images/";
@@ -13,12 +12,17 @@ export default function SingleCustomer(props) {
     const exp = props.worker.experience[0];
 
     const handleClick = (workerName) => {
-        const jobDetails = {
-            selectedJob,
-            workerName: workerName,
-            customerName: name
+        if (!selectedJob) {
+            alert('Please select a job');
         }
-        hireWorkers(jobDetails).then(r => setDisabled(true));
+        else {
+            const jobDetails = {
+                selectedJob,
+                workerName: workerName,
+                customerName: name
+            }
+            hireWorkers(jobDetails).then(r => setDisabled(true));
+        }
     }
 
     const userArray = JSON.parse(sessionStorage.getItem("user"));
@@ -82,6 +86,7 @@ export default function SingleCustomer(props) {
                 </Row>
                 <p className="text-muted">Full Time</p>
                 <h4 className="fw-bold">{props.worker.occupation}</h4>
+                <p className="mb-0">0{props.worker.contactNumber}</p>
                 <p className="pb-3">{props.worker.address}</p>
 
                 <p className="fw-bold mb-1">Education</p>

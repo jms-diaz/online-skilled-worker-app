@@ -17,10 +17,6 @@ export const postCustomerDetails = async (customerDetails, setError, coordinates
     }
 }
 
-export const getCustomers = async () => {
-    return await axios.get("/customers/all");
-}
-
 export const getCurrentCustomer = async (user_id) => {
     return await axios.get("/customers/current",{
         params: {
@@ -50,4 +46,13 @@ export const searchWorkers = async (jobTitle, location) => {
 
 export const hireWorkers = async (jobDetails) => {
     return await axios.put("/jobs/hire", jobDetails);
+}
+
+
+export const findCustomer = async (name) => {
+    return await axios.get("/customers/find-one", {
+        params: {
+            name: name
+        }
+    });
 }

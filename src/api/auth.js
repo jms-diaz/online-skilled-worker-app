@@ -46,14 +46,6 @@ export const registerCustomer = async (userCredentials, setError) => {
     }
 }
 
-export const getProfilePhoto = async() => {
-    try {
-       
-    } catch (err) {
-
-    }
-}
-
 export const uploadPhoto = async (data) => {
     try {
         await axios.post("/upload", data);

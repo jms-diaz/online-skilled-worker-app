@@ -15,14 +15,6 @@ export const postJob = async (jobDetails, coordinates, name) => {
     }
 }
 
-export const getJobs = async () => {
-    try {
-        return await axios.get("jobs/all");
-    } catch (err) {
-        console.log(err);
-    }
-}
-
 export const getPendingJobs = async () => {
     try {
         return await axios.get("jobs/pending");

@@ -37,7 +37,7 @@ export default function CustomerMain() {
                                     <Col className="col-md-5">
                                         <Form.Group>
                                             <Form.Label className="text-white">Role Title</Form.Label>
-                                            <Form.Control type="text" placeholder="Senior Software Engineer"
+                                            <Form.Control type="text" placeholder="Electrician/Plumber"
                                                           id="jobTitle"/>
                                             />
                                         </Form.Group>

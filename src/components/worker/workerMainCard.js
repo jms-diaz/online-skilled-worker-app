@@ -24,6 +24,7 @@ export default function WorkerMainCard({job}) {
                 setUserLatitude(data.latitude)
                 setUserLongitude(data.longitude)
                 setName(data.fullName)
+                sessionStorage.setItem("workerName", data.fullName);
             }
         );
     }, []);

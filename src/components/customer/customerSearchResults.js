@@ -1,8 +1,11 @@
 import React from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import CustomerMainCard from "./customerMainCard";
+import {useNavigate} from "react-router-dom";
 
 export default function CustomerSearchResults({results}) {
+    const navigate = useNavigate();
+
     return (
         <Container className="py-5">
 

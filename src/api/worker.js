@@ -83,3 +83,11 @@ export const searchJobs = async (jobTitle, jobLocation) => {
         }
     });
 }
+
+export const findWorker = async (name) => {
+    return await axios.get("/workers/find-one", {
+        params: {
+            name: name
+        }
+    });
+}
