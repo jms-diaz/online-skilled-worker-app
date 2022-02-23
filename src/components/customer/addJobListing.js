@@ -48,7 +48,6 @@ export default function AddJobListing() {
     const schema = yup.object().shape({
         jobTitle: yup.string().required("Job title is required"),
         jobDescription: yup.string().required("Job description is required"),
-        salary: yup.string().matches(new RegExp('[0-9]{2}'), "Please enter valid salary").required("Salary is required"),
         jobLocation: yup.string().required("Job location is required"),
     });
 
@@ -63,7 +62,6 @@ export default function AddJobListing() {
                     {
                         jobTitle: "",
                         jobDescription: "",
-                        salary: "",
                         jobLocation: ""
                     }
                 }
@@ -79,7 +77,7 @@ export default function AddJobListing() {
                  }) => (
                     <Form onSubmit={handleSubmit}>
                         <Row>
-                            <Col className="col-md-6 mb-4">
+                            <Col className="mb-4">
                                 <Form.Group>
                                     <Form.Label className="fw-bold">Job Title</Form.Label>
                                     <Form.Control type="text" placeholder="Enter job title"
@@ -88,19 +86,6 @@ export default function AddJobListing() {
                                                   isInvalid={!!errors.jobTitle}/>
                                     <Form.Control.Feedback type="invalid">
                                         {errors.jobTitle}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                            </Col>
-                            <Col className="col-md-6 mb-4">
-                                <Form.Group>
-                                    <Form.Label className="fw-bold">Salary</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter salary"
-                                                  name="salary"
-                                                  value={values.salary}
-                                                  onChange={handleChange}
-                                                  isInvalid={!!errors.salary}/>
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.salary}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
@@ -162,12 +147,6 @@ export default function AddJobListing() {
                                         <Form.Group>
                                             <Form.Label className="fw-bold">Job Title</Form.Label>
                                             <Form.Control plaintext readOnly value={values.jobTitle}/>
-                                        </Form.Group>
-                                    </Col>
-                                    <Col className="col-md-6 mb-4">
-                                        <Form.Group>
-                                            <Form.Label className="fw-bold">Salary</Form.Label>
-                                            <Form.Control plaintext readOnly value={values.salary}/>
                                         </Form.Group>
                                     </Col>
                                 </Row>

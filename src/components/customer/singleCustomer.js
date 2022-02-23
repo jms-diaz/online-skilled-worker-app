@@ -14,8 +14,7 @@ export default function SingleCustomer(props) {
     const handleClick = (workerName) => {
         if (!selectedJob) {
             alert('Please select a job');
-        }
-        else {
+        } else {
             const jobDetails = {
                 selectedJob,
                 workerName: workerName,
@@ -87,18 +86,28 @@ export default function SingleCustomer(props) {
                 <p className="text-muted">Full Time</p>
                 <h4 className="fw-bold">{props.worker.occupation}</h4>
                 <p className="mb-0">0{props.worker.contactNumber}</p>
-                <p className="pb-3">{props.worker.address}</p>
+                <p className="mb-0">{props.worker.address}</p>
+                {exp.salary &&  <p className="fw-bold pb-3">Expected Salary: Php {exp.salary}</p>}
 
                 <p className="fw-bold mb-1">Education</p>
                 <p className="text-muted mb-1">{educ.fieldOfStudy} - {educ.qualification}</p>
                 <p className="text-muted">{educ.universityName} ({educ.universityLocation})</p>
 
                 <p className="fw-bold mb-1">Work Experience</p>
-                <p className="text-muted mb-1">{exp.positionTitle} - {exp.companyName} ({exp.country})</p>
-                <p className="text-muted mb-1">From {exp.joinedDurationStart} to {exp.joinedDurationEnd}</p>
+                {
+                    exp && (
+                        <>
+                            <p className="text-muted mb-1">{exp.positionTitle} - {exp.companyName}</p>
+                            <p className="text-muted mb-3">From {exp.joinedDurationStart} to {exp.joinedDurationEnd}</p>
+                        </>)
+                }
+                {
+                    exp.resume && <a href={PF + exp.resume} target="_blank">View Resume</a>
+                }
             </Modal.Body>
             <Card.Footer>
-                <small className="text-muted text-center">For more information, please contact <a href="mailto:oswl-admin@support.com">oswl-admin@support.com</a></small>
+                <small className="text-muted text-center">For more information, please contact <a
+                    href="mailto:oswl-admin@support.com">oswl-admin@support.com</a></small>
             </Card.Footer>
         </Modal>
     )

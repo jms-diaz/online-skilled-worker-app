@@ -74,7 +74,6 @@ export default function SingleWorker(props) {
                 </Row>
                 <p className="text-muted pb-4">{new Date(props.job.createdAt).toDateString()}</p>
                 <p className="fw-bold">Posted by {props.job.name}</p>
-                <p className="text-muted">Php {props.job.salary}</p>
                 <p className="text-muted" style={{whiteSpace: "pre-line"}}>{props.job.jobDescription}</p>
                 <p className="fw-bold">{props.job.jobLocation} - {
                     calculateManhattanDistance([props.job.latitude, props.job.longitude], [props.latitude, props.longitude])
